@@ -1,0 +1,22 @@
+version: '3'
+services:
+  kumar-mysql:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=kumar_password 
+      - MYSQL_DATABASE=kumar_db
+      - MYSQL_USER=kumar_user
+      - MYSQL_PASSWORD=kumar_password
+    ports:
+      - 3306:3306
+
+  petclinic-docker-container: 
+   image: petclinic-docker-container
+   build:
+     context: ./
+     dockerfile: Dockerfile
+   ports:
+     - 9000:8080
+   depends_on:
+     - kumar-mysql 
